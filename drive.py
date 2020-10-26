@@ -13,8 +13,19 @@ from flask import Flask
 from io import BytesIO
 
 from keras.models import load_model
+#from tensorflow.keras.models import load_model
 import h5py
 from keras import __version__ as keras_version
+
+#from keras.utils.generic_utils import get_custom_objects
+#import model
+"""
+#from tensorflow import nn
+from model.py import swish
+customObjects = {
+    'swish': swish,
+}
+"""
 
 sio = socketio.Server()
 app = Flask(__name__)
@@ -120,6 +131,8 @@ if __name__ == '__main__':
               ', but the model was built using ', model_version)
 
     model = load_model(args.model)
+    #model = load_model(args.model, custom_objects={'swish':Swish(swish)})
+    #model = load_model(args.model, custom_objects={'swish': model.swish})
 
     if args.image_folder != '':
         print("Creating image folder at {}".format(args.image_folder))
